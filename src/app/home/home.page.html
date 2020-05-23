@@ -1,20 +1,70 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Ionic QR/ Barcode Scanner & Generator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-segment value="all" (ionChange)="onSegmentChnage($event)">
+    <ion-segment-button value="all"><ion-label>Scanner</ion-label></ion-segment-button>
+    <ion-segment-button value="bookable">Generator</ion-segment-button>
+  </ion-segment>
+  <ion-grid *ngIf="scanner else generator"  >
+    <ion-row >
+      <ion-col size="12" size-md="8" offset-md="2" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>To scan QR/Barcode please click below </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <div>
+              <ion-button color="primary" (click)="scanBar()">
+                Scan Code
+              </ion-button>
+              </div>
+           
+              <div *ngIf="scannedData">
+                <p>
+                  Scanned Code Text : <b>{{ scannedData["text"] }}</b>
+                </p>
+                <p>
+                  Scanned Code Format : <b>{{ scannedData["format"] }}</b>
+                </p>
+              </div>
+          </ion-card-content>
+        </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+       
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #generator>
+  <ion-grid size="12" size-sm="6" offset-sm="3">
+    <ion-row >
+      <ion-col size="12" size-md="8" offset-md="2" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Enter Value to Create QR code </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Data to Enter</ion-label>
+              <ion-input placeholder="Enter Input" [(ngModel)]="encodedData"></ion-input>
+            </ion-item>
+            <ion-button color="success" (click)="generateBar()" class="ion-margin">
+              Create QR
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-template>
+ 
+
+ 
 </ion-content>

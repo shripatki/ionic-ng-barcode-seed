@@ -1,5 +1,8 @@
 {
   "name": "ionic-ng-barcode-seed",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }
